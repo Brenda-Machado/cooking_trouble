@@ -1,5 +1,5 @@
 from cmath import rect
-from Coordenada import Coordenada
+from src.utils.Coordenada import Coordenada
 from abc import ABC, abstractmethod
 import pygame
 

@@ -1,5 +1,5 @@
 import imp
-from Coordenada import Coordenada
+from src.utils.Coordenada import Coordenada
 from Interativos import Interativos
 import pygame
 

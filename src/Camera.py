@@ -1,7 +1,7 @@
 from sys import implementation
 import pygame
-from Coordenada import Coordenada
-from Tamanho import Tamanho
+from src.utils.Coordenada import Coordenada
+from src.utils.Tamanho import Tamanho
 
 
 class Camera:

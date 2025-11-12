@@ -1,6 +1,6 @@
 import pygame
-from Coordenada import Coordenada
-from Tamanho import Tamanho
+from src.utils.Coordenada import Coordenada
+from src.utils.Tamanho import Tamanho
 from abc import ABC, abstractmethod
 from GerenciadorImagens import GerenciadorImagens
 

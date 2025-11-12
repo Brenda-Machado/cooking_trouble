@@ -1,8 +1,8 @@
-from Coordenada import Coordenada
-from Tamanho import Tamanho
+from src.utils.Coordenada import Coordenada
+from src.utils.Tamanho import Tamanho
 from random import randrange
 from ObstaculoMapa import ObstaculoMapa
-from PontoEntrega import PontoEntrega
+from src.models.entities.PontoEntrega import PontoEntrega
 import pygame
 from GerenciadorImagens import GerenciadorImagens
 

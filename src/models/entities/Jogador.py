@@ -1,8 +1,8 @@
-from Movel import Movel
-from Coordenada import Coordenada
-from Tamanho import Tamanho
-from Item import Item
-from PontoEntrega import PontoEntrega
+from src.models.entities.base.Movel import Movel
+from src.utils.Coordenada import Coordenada
+from src.utils.Tamanho import Tamanho
+from src.models.entities.Item import Item
+from src.models.entities.PontoEntrega import PontoEntrega
 from GerenciadorImagens import GerenciadorImagens
 
 

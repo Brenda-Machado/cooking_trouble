@@ -3,14 +3,14 @@ import pygame
 import sys
 from pygame.locals import *
 from GerenciadorImagens import GerenciadorImagens
-from Mapa import Mapa
-from PontoEntrega import PontoEntrega
-from Item import Item
+from src.models.entities.Mapa import Mapa
+from src.models.entities.PontoEntrega import PontoEntrega
+from src.models.entities.Item import Item
 from InimigoObstaculo import InimigoObstaculo
 from InimigoPessoa import InimigoPessoa
-from Jogador import Jogador
-from Coordenada import Coordenada
-from Tamanho import Tamanho
+from src.models.entities.Jogador import Jogador
+from src.utils.Coordenada import Coordenada
+from src.utils.Tamanho import Tamanho
 import time
 
 

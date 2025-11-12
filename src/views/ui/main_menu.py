@@ -1,7 +1,7 @@
 from select import select
 import pygame
 from pygame.locals import *
-from Menu import Menu
+from src.base_menu import Menu
 from GerenciadorImagens import GerenciadorImagens
 
 

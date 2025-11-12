@@ -2,24 +2,24 @@
 import pygame
 import time
 from pygame.locals import *
-from Fase import Fase
-from ConstrutorFase import ConstrutorFase
+from src.models.Fase import Fase
+from src.level_builder import ConstrutorFase
 from InimigoPessoa import InimigoPessoa
-from Jogador import Jogador
-from Item import Item
-from PontoEntrega import PontoEntrega
+from src.models.entities.Jogador import Jogador
+from src.models.entities.Item import Item
+from src.models.entities.PontoEntrega import PontoEntrega
 #from Menu import Menu
-from MenuCreditos import MenuCreditos
-from MenuPrincipal import MenuPrincipal
-from MenuTutorial import MenuTutorial
+from src.credits_menu import MenuCreditos
+from src.main_menu import MenuPrincipal
+from src.tutorial_menu import MenuTutorial
 from Camera import Camera
-from Estados import Estados
+from src.models.Estados import Estados
 from GerenciadorImagens import GerenciadorImagens
-from MenuDerrota import MenuDerrota
-from RenderizadorJogo import RenderizadorJogo
-from MenuVitoria import MenuVitoria
-from MenuPausa import MenuPausa
-from MenuDificuldade import MenuDificuldade
+from src.defeat_menu import MenuDerrota
+from src.views.RenderizadorJogo import RenderizadorJogo
+from src.victory_menu import MenuVitoria
+from src.pause_manu import MenuPausa
+from src.difficulty_menu import MenuDificuldade
 from GerenciadorSons import GerenciadorSons
 
 

@@ -1,8 +1,8 @@
-from Mapa import Mapa
-from Item import Item
-from Coordenada import Coordenada
+from src.models.entities.Mapa import Mapa
+from src.models.entities.Item import Item
+from src.utils.Coordenada import Coordenada
 from ObstaculoMapa import ObstaculoMapa
-from Tamanho import Tamanho
+from src.utils.Tamanho import Tamanho
 from Singleton import Singleton
 
 

@@ -1,7 +1,7 @@
 import pygame
-from Movel import Movel
-from Coordenada import Coordenada
-from Tamanho import Tamanho
+from src.models.entities.base.Movel import Movel
+from src.utils.Coordenada import Coordenada
+from src.utils.Tamanho import Tamanho
 from GerenciadorImagens import GerenciadorImagens
 
 

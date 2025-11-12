@@ -10,7 +10,7 @@ from ObstaculoMapa import ObstaculoMapa
 from Mapa import Mapa
 from random import randrange
 from math import floor, ceil
-from Coordenada import Coordenada
+from src.utils.Coordenada import Coordenada
 from GerenciadorSons import GerenciadorSons
 
 

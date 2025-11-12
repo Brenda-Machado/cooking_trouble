@@ -1,5 +1,5 @@
-from Coordenada import Coordenada
-from Tamanho import Tamanho
+from src.utils.Coordenada import Coordenada
+from src.utils.Tamanho import Tamanho
 import pygame
 from GerenciadorImagens import GerenciadorImagens
 

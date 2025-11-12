@@ -1,6 +1,6 @@
 from enum import IntEnum
 
-class Estados(IntEnum):
+class GameState(IntEnum):
     JOGANDO = 0
     PRINCIPAL = 1 
     DIFICULDADE = 2   
