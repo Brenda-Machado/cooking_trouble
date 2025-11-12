@@ -1,141 +1,108 @@
+"""
+Cooking Trouble.
+
+Classe base para entidades que se movem.
+
+movable_entity.py
+"""
+
 import pygame
-from src.utils.Coordenada import Coordenada
-from src.utils.Tamanho import Tamanho
-from abc import ABC, abstractmethod
-from GerenciadorImagens import GerenciadorImagens
+from abc import abstractmethod
+from src.models.entities.base.entity import Entity
+from src.utils.coordinate import Coordinate
+from src.utils.size import Size
 
-
-class Movel(ABC):
-    def __init__(self, coord: Coordenada, tamanho: Tamanho, velocidade: float, sprites: list = []):
-        self.__coord = coord
-        self.__tamanho = tamanho
-        self.__velocidade = velocidade
-        self.__direcao_deslocamento = Coordenada(0, 0)
-        self.__rect = pygame.Rect((self.coord.x, self.coord.y, int(
-            self.tamanho.largura), int(self.tamanho.altura)))
-        self.__atingido = False
-        self.__coord_atingido = None
-        self.__angulo = 0
-        self.__imagens = self.salvar_imagens(sprites)
-
-    @abstractmethod
-    # define self.__direcao_deslocamento com base no estado (comando do jogador ou decisao de IA)
-    def decideDirecao(self):
-        pass
-
-    # define o que acontece quando o objeto colide com outro objeto (na coordenada coord)
-    def colidiu(self, coord: Coordenada):
-        pass
-
-    @abstractmethod
-    def salvar_imagens(self, sprites: list):
-        pass
+class MovableEntity(Entity):
+    def __init__(self, coord: Coordinate, size: Size, speed: float):
+        super().__init__(coord, size)
+        self._speed = speed
+        self._direction = Coordinate(0, 0)
+        self._angle = 0
+        self._knockback_time = 0
+        self._knockback_source = None
+        self._images = []
+        self._current_image_index = 0
 
     @property
-    def coord(self) -> Coordenada:
-        return self.__coord
+    def speed(self) -> float:
+        return self._speed
+
+    @speed.setter
+    def speed(self, value: float):
+        if value < 0:
+            raise ValueError("Velocidade não pode ser negativa")
+        
+        self._speed = value
 
     @property
-    def tamanho(self) -> Tamanho:
-        return self.__tamanho
+    def direction(self) -> Coordinate:
+        return self._direction
+
+    @direction.setter
+    def direction(self, value: Coordinate):
+        self._direction = Coordinate(value.x, value.y)
+        self._angle = Coordinate.calculate_angle(value.x, value.y)
+        self._update_rect_rotation()
 
     @property
-    def velocidade(self) -> float:
-        return self.__velocidade
+    def angle(self) -> int:
+        return self._angle
 
     @property
-    def direcao_deslocamento(self) -> Coordenada:
-        return self.__direcao_deslocamento
+    def is_knockbacked(self) -> bool:
+        return self._knockback_time > 0
 
     @property
-    def rect(self):
-        return self.__rect
+    def knockback_time_remaining(self) -> int:
+        return self._knockback_time
 
     @property
-    def atingido(self) -> int:
-        return self.__atingido
+    def images(self) -> list:
+        return self._images
 
-    @property
-    def coord_atingido(self) -> Coordenada:
-        return self.__coord_atingido
+    def apply_knockback(self, source_coord: Coordinate, duration: int):
+        self._knockback_time = duration
+        self._knockback_source = Coordinate(source_coord.x, source_coord.y)
+        direction = Coordinate.unit_vector(source_coord, self._coord)
+        self._direction = direction
 
-    @property
-    def angulo(self) -> int:
-        return self.__angulo
+    def get_effective_speed(self) -> float:
+        if self.is_knockbacked:
+            return self._speed * 2
+        
+        return self._speed
 
-    @property
-    def imagens(self):
-        return self.__imagens
+    def _update_rect_rotation(self):
+        if not (self._angle >= 315 or self._angle <= 45 or 
+                (self._angle >= 135 and self._angle <= 225)):
+            self._rect.width = int(self._size.height)
+            self._rect.height = int(self._size.width)
 
-    @coord.setter
-    def coord(self, coord: Coordenada):
-        self.__coord = coord
-
-    @imagens.setter
-    def imagens(self, imagens: list):
-        self.__imagens = imagens
-
-    @tamanho.setter
-    def tamanho(self, tamanho: Tamanho):
-        self.__tamanho.largura = tamanho.largura
-        self.__tamanho.altura = tamanho.altura
-
-    @velocidade.setter
-    def velocidade(self, velocidade: float):
-        self.__velocidade = velocidade
-
-    @direcao_deslocamento.setter
-    def direcao_deslocamento(self, dir: Coordenada):
-        self.__direcao_deslocamento.x = dir.x
-        self.__direcao_deslocamento.y = dir.y
-
-        if self.direcao_deslocamento.x != 0 and self.direcao_deslocamento.y != 0:
-            if abs(self.direcao_deslocamento.x) >= 0.924:
-                if self.direcao_deslocamento.x > 0:
-                    self.__angulo = 270
-                else:
-                    self.__angulo = 90
-            elif abs(self.direcao_deslocamento.y) >= 0.924:
-                if self.direcao_deslocamento.y > 0:
-                    self.__angulo = 180
-                else:
-                    self.__angulo = 0
-            else:
-                if self.direcao_deslocamento.x > 0:
-                    if self.direcao_deslocamento.y > 0:
-                        self.__angulo = 225
-                    else:
-                        self.__angulo = 315
-                else:
-                    if self.direcao_deslocamento.y > 0:
-                        self.__angulo = 135
-                    else:
-                        self.__angulo = 45
-
-    @atingido.setter
-    def atingido(self, atingido: int):
-        self.__atingido = atingido
-
-    @coord_atingido.setter
-    def coord_atingido(self, coord: Coordenada):
-        self.__coord_atingido = Coordenada(coord.x, coord.y)
-
-    def desenhar(self, posicao_camera):
-        rect_camera = self.__rect.move(-posicao_camera.x, -posicao_camera.y)
-        return rect_camera
-
-    def velocidade_real(self) -> float:
-        return self.velocidade * 2 if self.atingido > 0 else self.velocidade
-
-    def mover(self):
-        if self.atingido > 0:
-            self.atingido -= 1
-        direcao = self.__direcao_deslocamento
-        velocidade = self.velocidade_real()
-        self.__coord.mover(direcao.x*velocidade,
-                           direcao.y*velocidade)
-        if self.angulo >= 315 or self.angulo <= 45 or (self.angulo >= 135 and self.angulo <= 225):
-            self.__rect.update(0, 0, self.tamanho.largura, self.tamanho.altura)
         else:
-            self.__rect.update(0, 0, self.tamanho.altura, self.tamanho.largura)
-        self.__rect.center = self.coord.x, self.coord.y
+            self._rect.width = int(self._size.width)
+            self._rect.height = int(self._size.height)
+
+    def update(self, delta_time: float):
+        if self.is_knockbacked:
+            self._knockback_time -= 1
+
+        speed = self.get_effective_speed()
+        displacement = Coordinate(
+            self._direction.x * speed,
+            self._direction.y * speed
+        )
+
+        self._coord.move(displacement.x, displacement.y)
+        self._update_rect_position()
+
+    @abstractmethod
+    def decide_direction(self):
+        pass
+
+    @abstractmethod
+    def on_collision(self, other_coord: Coordinate):
+        pass
+
+    @abstractmethod
+    def load_images(self, sprite_names: list) -> list:
+        pass
