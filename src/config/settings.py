@@ -7,6 +7,7 @@ settings.py
 """
 
 from src.utils.constants import *
+
 class GameSettings:
     def __init__(self):
         self.screen_width = SCREEN_WIDTH
