@@ -8,7 +8,7 @@ from src.models.entities.PontoEntrega import PontoEntrega
 from src.models.entities.Item import Item
 from InimigoObstaculo import InimigoObstaculo
 from InimigoPessoa import InimigoPessoa
-from src.models.entities.Jogador import Jogador
+from src.models.entities.player import Jogador
 from src.utils.Coordenada import Coordenada
 from src.utils.Tamanho import Tamanho
 import time

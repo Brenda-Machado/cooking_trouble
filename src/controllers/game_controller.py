@@ -5,7 +5,7 @@ from pygame.locals import *
 from src.models.Fase import Fase
 from src.level_builder import ConstrutorFase
 from InimigoPessoa import InimigoPessoa
-from src.models.entities.Jogador import Jogador
+from src.models.entities.player import Jogador
 from src.models.entities.Item import Item
 from src.models.entities.PontoEntrega import PontoEntrega
 #from Menu import Menu
