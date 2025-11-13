@@ -5,7 +5,7 @@ from src.models.entities.player import Jogador
 from random import randrange
 from InimigoObstaculo import InimigoObstaculo
 from InimigoPessoa import InimigoPessoa
-from src.models.entities.PontoEntrega import PontoEntrega
+from src.models.entities.delivery_point import PontoEntrega
 from Singleton import Singleton
 from math import ceil
 from copy import deepcopy

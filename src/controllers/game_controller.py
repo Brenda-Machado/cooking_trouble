@@ -7,7 +7,7 @@ from src.level_builder import ConstrutorFase
 from InimigoPessoa import InimigoPessoa
 from src.models.entities.player import Jogador
 from src.models.entities.item import Item
-from src.models.entities.PontoEntrega import PontoEntrega
+from src.models.entities.delivery_point import PontoEntrega
 #from Menu import Menu
 from src.credits_menu import MenuCreditos
 from src.main_menu import MenuPrincipal
