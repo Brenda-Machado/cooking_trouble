@@ -1,5 +1,5 @@
 from src.models.entities.Mapa import Mapa
-from src.models.entities.Item import Item
+from src.models.entities.item import Item
 from src.utils.Coordenada import Coordenada
 from ObstaculoMapa import ObstaculoMapa
 from src.utils.Tamanho import Tamanho

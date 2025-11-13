@@ -5,7 +5,7 @@ from pygame.locals import *
 from GerenciadorImagens import GerenciadorImagens
 from src.models.entities.Mapa import Mapa
 from src.models.entities.PontoEntrega import PontoEntrega
-from src.models.entities.Item import Item
+from src.models.entities.item import Item
 from InimigoObstaculo import InimigoObstaculo
 from InimigoPessoa import InimigoPessoa
 from src.models.entities.player import Jogador
