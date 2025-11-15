@@ -1,5 +1,9 @@
 # Guia de Contribuição
 
+> Obrigada por querer contribuir com o **Cooking Trouble** 🍳!
+
+---
+
 Este projeto é de código aberto e todas as contribuições são bem-vindas, sejam correções, novas funcionalidades, melhorias de código, documentação ou design.
 
 ---
@@ -27,6 +31,8 @@ Siga os passos abaixo para enviar suas contribuições de forma organizada:
    ```
 6. Abra um pull request! Descreva claramente as mudanças feitas e o motivo delas.
 
+---
+
 ## Tipos de Contribuição
 
 As principais formas de contribuir são:
@@ -41,6 +47,9 @@ As principais formas de contribuir são:
 
 + Documentação: Atualize ou melhore a clareza dos arquivos de documentação.
 
+Se tiver outros tipos de contribuições, entre em contato sobre. Assim entendemos melhor as demandas do projeto.
+
+---
 
 ## Boas Práticas
 
@@ -56,4 +65,4 @@ Antes de enviar suas contribuições, siga estas boas práticas:
 
 + Seja colaborativo e mantenha a comunicação clara nas discussões e revisões.
 
-> Obrigada por querer contribuir com o **Cooking Trouble**🍳!
+---
