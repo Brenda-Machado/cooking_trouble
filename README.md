@@ -15,10 +15,10 @@ A cada nível, o chef atravessa cenários desafiadores, coletando ingredientes e
 
 ## Em Desenvolvimento  
 
-Este projeto está em andamento!
+> [!IMPORTANT]
+> Este projeto está em andamento!
 
-Fique à vontade para explorar o código, testar e contribuir com melhorias.  
-No momento, o jogo ainda está sendo desenvolvido, e algumas funcionalidades podem não estar finalizadas ou conter bugs.  
+Fique à vontade para explorar o código, testar e contribuir com melhorias. No momento, o jogo ainda está sendo desenvolvido, e algumas funcionalidades podem não estar finalizadas ou conter bugs.  
 
 Se encontrar algum problema, abra uma *issue*! Isso ajuda muito a melhorar o desenvolvimento.  
 
@@ -52,7 +52,7 @@ Se encontrar algum problema, abra uma *issue*! Isso ajuda muito a melhorar o des
 ## Como Contribuir  
 
 As contribuições são **muito bem-vindas**!  
-Confira o arquivo [`CONTRIBUTE.md`](CONTRIBUTE.md) para saber como colaborar com o projeto.  
+Confira o arquivo [`CONTRIBUTING.md`](CONTRIBUTING.md) para saber como colaborar com o projeto.  
 
 ---
 

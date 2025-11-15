@@ -1,6 +1,5 @@
 # Guia de Contribuição
 
-Obrigado por querer contribuir com o **Cooking Trouble**.  
 Este projeto é de código aberto e todas as contribuições são bem-vindas, sejam correções, novas funcionalidades, melhorias de código, documentação ou design.
 
 ---
@@ -9,8 +8,8 @@ Este projeto é de código aberto e todas as contribuições são bem-vindas, se
 
 Siga os passos abaixo para enviar suas contribuições de forma organizada:
 
-1. **Faça um fork** deste repositório.
-2. **Clone o fork** para o seu ambiente local:
+1. Faça um fork deste repositório.
+2. Clone o fork para o seu ambiente local:
    ```bash
    git clone https://github.com/seu-usuario/cooking-trouble.git
    ```
@@ -56,3 +55,5 @@ Antes de enviar suas contribuições, siga estas boas práticas:
 + Respeite as diretrizes de formatação e organização de pastas do projeto.
 
 + Seja colaborativo e mantenha a comunicação clara nas discussões e revisões.
+
+> Obrigada por querer contribuir com o **Cooking Trouble**🍳!
