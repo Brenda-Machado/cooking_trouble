@@ -1,70 +1,66 @@
-from typing import Tuple
+"""
+Cooking Trouble.
+
+Classe base para os menus.
+
+base_menu.py
+"""
+
 import pygame
-import sys
-from pygame.locals import *
-from GerenciadorImagens import GerenciadorImagens
-from abc import abstractmethod, ABC
-from GerenciadorSons import GerenciadorSons
+from abc import ABC, abstractmethod
+from src.services.image_manager import ImageManager
+from src.utils.constants import COLOR_WHITE, COLOR_BLACK
 
-
-class Menu(ABC):
-    def __init__(self, tamanho: Tuple):
-        self.__tamanho_display = self.__largura, self.__altura = tamanho[0], tamanho[1]
-        self.__display = pygame.display.set_mode(
-            self.__tamanho_display, pygame.HWSURFACE)
-        self.__branco = ((255, 255, 255))
-        self.__fonte = 'PressStart2P-vaV7.ttf'
-        self.__fundo = GerenciadorImagens().getSprite(
-            'fundo_menu', 'fundo_menu', self.largura, self.altura)
-        self.__som_cursor = GerenciadorSons().getSound('sons', 'mudando_cursor')
+class BaseMenu(ABC):
+    def __init__(self, screen_size: tuple):
+        self._width, self._height = screen_size
+        self._font_path = 'PressStart2P-vaV7.ttf'
+        self._background = self._load_background()
+        self._white = COLOR_WHITE
+        self._black = COLOR_BLACK
 
     @property
-    def tamanho_display(self):
-        return self.__tamanho_display
+    def width(self) -> int:
+        return self._width
 
     @property
-    def largura(self):
-        return self.__largura
+    def height(self) -> int:
+        return self._height
 
-    @property
-    def altura(self):
-        return self.__altura
+    def _load_background(self) -> pygame.Surface:
+        image_manager = ImageManager()
 
-    @property
-    def som_cursor(self):
-        return self.__som_cursor
-
-    @property
-    def display(self):
-        return self.__display
-
-    @property
-    def branco(self):
-        return self.__branco
-
-    @property
-    def fonte(self):
-        return self.__fonte
-
-    @property
-    def fundo(self):
-        return self.__fundo
-
-    @fonte.setter
-    def fonte(self, fonte):
-        self.__fonte = fonte
-
-    @fundo.setter
-    def fundo(self, fundo):
-        self.__fundo = fundo
-
-    def desenha_texto(self, texto, tamanho, x, y, cor, fonte):
-        font = pygame.font.Font(fonte, tamanho)
-        text_surface = font.render(texto, True, cor)
-        text_rect = text_surface.get_rect()
-        text_rect.center = (x, y)
-        self.__display.blit(text_surface, text_rect)
+        return image_manager.get_background('menu_background', self._width, self._height)
 
     @abstractmethod
-    def display_menu(self):
+    def render(self, display: pygame.Surface):
         pass
+
+    def _draw_text(self, display: pygame.Surface, text: str, size: int,
+                   x: float, y: float, color: tuple = None):
+
+        if color is None:
+            color = self._white
+
+        font = pygame.font.Font(self._font_path, size)
+        text_surface = font.render(text, True, color)
+        text_rect = text_surface.get_rect(center=(x, y))
+        display.blit(text_surface, text_rect)
+
+    def _draw_bordered_text(self, display: pygame.Surface, text: str,
+                            size: int, x: float, y: float,
+                            text_color: tuple = None, border_color: tuple = None):
+        if text_color is None:
+            text_color = self._white
+        if border_color is None:
+            border_color = self._black
+
+        font = pygame.font.Font(self._font_path, size)
+        text_surface = font.render(text, True, text_color)
+        border_surface = font.render(text, True, border_color)
+        text_rect = text_surface.get_rect(center=(x, y))
+
+        for offset in [(-2, -2), (-2, 2), (2, -2), (2, 2)]:
+            display.blit(border_surface, text_rect.move(*offset))
+
+        display.blit(text_surface, text_rect)
