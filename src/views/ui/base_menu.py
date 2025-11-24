@@ -7,6 +7,7 @@ base_menu.py
 """
 
 import pygame
+import os
 from abc import ABC, abstractmethod
 from src.services.image_manager import ImageManager
 from src.utils.constants import COLOR_WHITE, COLOR_BLACK
@@ -14,10 +15,11 @@ from src.utils.constants import COLOR_WHITE, COLOR_BLACK
 class BaseMenu(ABC):
     def __init__(self, screen_size: tuple):
         self._width, self._height = screen_size
-        self._font_path = 'PressStart2P-vaV7.ttf'
         self._background = self._load_background()
         self._white = COLOR_WHITE
         self._black = COLOR_BLACK
+        root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+        self._font_path = os.path.join(root_dir, 'assets', 'fonts', 'PressStart2P-vaV7.ttf')
 
     @property
     def width(self) -> int:

@@ -8,7 +8,7 @@ sound_manager.py
 
 import pygame
 import os
-from typing import Dict
+from typing import Dict, Optional
 
 class SoundManager:
     _instance = None
