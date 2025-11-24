@@ -1,106 +1,65 @@
-from select import select
+"""
+Cooking Trouble.
+
+Classe do menu principal.
+
+main_menu.py
+"""
+
 import pygame
-from pygame.locals import *
-from src.base_menu import Menu
-from GerenciadorImagens import GerenciadorImagens
+from src.views.ui.base_menu import BaseMenu
+from src.utils.constants import COLOR_WHITE, COLOR_BLACK
 
+class MainMenu(BaseMenu):
+    OPTION_PLAY = 0
+    OPTION_TUTORIAL = 1
+    OPTION_CREDITS = 2
+    OPTION_EXIT = 3
 
-class MenuPrincipal(Menu):
-    def __init__(self, tamanho):
-        super().__init__(tamanho)
-        self.__distancia_cursor = self.largura/2 - 150
-        self.__altura_jogar = self.altura/2 - 120
-        self.__altura_tutorial = self.altura/2 - 60
-        self.__altura_creditos = self.altura/2
-        self.__altura_sair = self.altura/2 + 60
-        self.__cursor_rect = pygame.Rect(
-            self.__distancia_cursor, self.__altura_jogar, 130, 130)
-        self.__opcao = 'Jogar'
+    def __init__(self, screen_size: tuple):
+        super().__init__(screen_size)
+        self._selected_option = self.OPTION_PLAY
+        self._cursor_x = self._width / 2 - 150
 
     @property
-    def distancia_cursor(self):
-        return self.__distancia_cursor
+    def selected_option(self) -> int:
+        return self._selected_option
 
-    @property
-    def altura_jogar(self):
-        return self.__altura_jogar
+    def set_selected_option(self, option: int):
+        max_option = self.OPTION_EXIT
+        self._selected_option = max(0, min(option, max_option))
 
-    @property
-    def altura_tutorial(self):
-        return self.__altura_tutorial
+    def move_cursor_up(self):
+        self.set_selected_option(self._selected_option - 1)
 
-    @property
-    def altura_creditos(self):
-        return self.__altura_creditos
+    def move_cursor_down(self):
+        self.set_selected_option(self._selected_option + 1)
 
-    @property
-    def altura_sair(self):
-        return self.__altura_sair
+    def render(self, display: pygame.Surface):
+        display.blit(self._background, (0, 0))
 
-    @property
-    def cursor_rect(self):
-        return self.__cursor_rect
+        self._draw_bordered_text(
+            display, "Cozinhando em Apuros", 60,
+            self._width / 2, self._height / 8,
+            COLOR_WHITE, COLOR_BLACK
+        )
 
-    @property
-    def opcao(self):
-        return self.__opcao
+        options = ["Jogar", "Tutorial", "Créditos", "Sair"]
+        option_y = [
+            self._height / 2 - 120,
+            self._height / 2 - 60,
+            self._height / 2,
+            self._height / 2 + 60
+        ]
 
-    def display_menu(self):
-        self.display.fill((0, 0, 0))
-        self.display.blit(self.fundo, (0, 0))
-        self.desenha_texto('Cozinhando em apuros', 60, self.largura / 2,
-                           self.altura / 8, self.branco, self.fonte)
-        self.desenha_texto("  Menu Principal ", 40, self.largura / 2,
-                           self.altura / 4, self.branco, self.fonte)
-        self.desenha_texto("Jogar", 30, self.largura/2,
-                           self.altura_jogar, self.branco, self.fonte)
-        self.desenha_texto("Tutorial", 30, self.largura/2,
-                           self.altura_tutorial, self.branco, self.fonte)
-        self.desenha_texto("Créditos", 30, self.largura/2,
-                           self.altura_creditos, self.branco, self.fonte)
-        self.desenha_texto("Sair", 30, self.largura/2,
-                           self.altura_sair, self.branco, self.fonte)
-        self.desenha_texto("Voltar: Backspace", 20, self.largura/2 - 200,
-                           self.altura/2 + 190, self.branco, self.fonte)
-        self.desenha_texto("Avançar: Enter", 20, self.largura/2 + 200,
-                           self.altura/2 + 190, self.branco, self.fonte)
-        self.desenha_texto('▶', 20, self.cursor_rect.x,
-                           self.cursor_rect.y, self.branco, self.fonte)
+        for i, (option, y) in enumerate(zip(options, option_y)):
+            self._draw_text(display, option, 30, self._width / 2, y)
 
-    def move_cursor(self, teclas_clicadas): 
-        if teclas_clicadas['s'] == True:
-            self.som_cursor.play()
-            if self.__opcao == 'Jogar':
-                self.__cursor_rect.midtop = (
-                    self.__distancia_cursor, self.__altura_tutorial)
-                self.__opcao = 'Tutorial'
-            elif self.__opcao == 'Tutorial':
-                self.__cursor_rect.midtop = (
-                    self.__distancia_cursor, self.__altura_creditos)
-                self.__opcao = 'Créditos'
-            elif self.__opcao == 'Créditos':
-                self.__cursor_rect.midtop = (
-                    self.__distancia_cursor, self.__altura_sair)
-                self.__opcao = 'Sair'
-            elif self.__opcao == 'Sair':
-                self.__cursor_rect.midtop = (
-                    self.__distancia_cursor, self.__altura_jogar)
-                self.__opcao = 'Jogar'
-        elif teclas_clicadas['w'] == True:
-            self.som_cursor.play()
-            if self.__opcao == 'Jogar':
-                self.__cursor_rect.midtop = (
-                    self.__distancia_cursor, self.__altura_sair)
-                self.__opcao = 'Sair'
-            elif self.__opcao == 'Sair':
-                self.__cursor_rect.midtop = (
-                    self.__distancia_cursor, self.__altura_creditos)
-                self.__opcao = 'Créditos'
-            elif self.__opcao == 'Créditos':
-                self.__cursor_rect.midtop = (
-                    self.__distancia_cursor, self.__altura_tutorial)
-                self.__opcao = 'Tutorial'
-            elif self.__opcao == 'Tutorial':
-                self.__cursor_rect.midtop = (
-                    self.__distancia_cursor, self.__altura_jogar)
-                self.__opcao = 'Jogar'
+        cursor_y = option_y[self._selected_option]
+        self._draw_text(display, "▶", 20, self._cursor_x, cursor_y)
+
+        self._draw_bordered_text(
+            display, "W/S: Mover | Enter: Selecionar | ESC: Voltar", 16,
+            self._width / 2, self._height - 40,
+            COLOR_WHITE, COLOR_BLACK
+        )
