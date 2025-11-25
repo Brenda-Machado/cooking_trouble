@@ -7,6 +7,7 @@ renderer.py
 """
 
 import pygame
+import os
 from typing import Tuple
 from src.utils.coordinate import Coordinate
 from src.utils.constants import COLOR_WHITE, COLOR_BLACK
@@ -15,7 +16,8 @@ from src.models.phase import Phase
 class GameRenderer:
     def __init__(self, screen_size: Tuple[int, int]):
         self._screen_width, self._screen_height = screen_size
-        self._font_name = 'PressStart2P-vaV7.ttf'
+        root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+        self._font_path = os.path.join(root_dir, 'assets', 'fonts', 'PressStart2P-vaV7.ttf')
 
     def render_phase(self, display: pygame.Surface, phase: Phase,
                      camera_offset: Coordinate, timer_seconds: int):
@@ -123,7 +125,7 @@ class GameRenderer:
     def _draw_bordered_text(self, display: pygame.Surface, text: str,
                             size: int, x: float, y: float,
                             text_color: Tuple, border_color: Tuple):
-        font = pygame.font.Font(self._font_name, size)
+        font = pygame.font.Font(self._font_path, size)
         text_surface = font.render(text, True, text_color)
         border_surface = font.render(text, True, border_color)
         text_rect = text_surface.get_rect(center=(x, y))
